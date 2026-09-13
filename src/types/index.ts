@@ -4,6 +4,7 @@ export interface ImageItem {
   id: string;
   title: string;
   url: string;
+  cloudinaryPublicId?: string;
   thumbnailUrl?: string;
   aspectRatio: ImageAspectRatio;
   width: number;

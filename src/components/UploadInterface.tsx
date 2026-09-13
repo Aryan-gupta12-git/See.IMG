@@ -20,9 +20,11 @@ export const UploadInterface: React.FC = () => {
       const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
       const formattedTitle = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
 
-      uploadImage({
+      // Persist confirmed Cloudinary metadata to Neon PostgreSQL
+      await uploadImage({
         title: formattedTitle || 'Untitled Study',
         url: result.secure_url,
+        cloudinaryPublicId: result.public_id,
         aspectRatio: result.aspectRatio,
         width: result.width,
         height: result.height,
