@@ -1,4 +1,5 @@
 import type { ImageAspectRatio } from '../types';
+import { stripImageMetadata } from '../utils/imageSanitizer';
 
 export interface CloudinaryUploadResponse {
   secure_url: string;
@@ -79,12 +80,15 @@ export async function uploadToCloudinary(file: File): Promise<CloudinaryUploadRe
   // 1. Validate image format and size
   validateImageFile(file);
 
-  // 2. Validate environment configuration
+  // 2. Strip sensitive EXIF / GPS / personal metadata before transmission
+  const sanitizedFile = await stripImageMetadata(file);
+
+  // 3. Validate environment configuration
   const { cloudName, uploadPreset } = getCloudinaryConfig();
 
-  // 3. Prepare multipart form data for direct unsigned upload
+  // 4. Prepare multipart form data with the sanitized file
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append('file', sanitizedFile, sanitizedFile.name);
   formData.append('upload_preset', uploadPreset);
 
   const endpoint = `https://api.cloudinary.com/v1_1/${encodeURIComponent(cloudName)}/image/upload`;

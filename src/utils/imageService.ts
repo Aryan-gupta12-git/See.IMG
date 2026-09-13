@@ -110,7 +110,7 @@ export function getOptimizedImageUrl(url: string, width?: number): string {
   // Handle Cloudinary upload URLs
   if (url.includes('res.cloudinary.com')) {
     const insertIdx = url.indexOf('/upload/') + 8;
-    const transform = width ? `f_auto,q_auto,w_${width}/` : 'f_auto,q_auto/';
+    const transform = width ? `f_auto,q_auto,fl_strip_profile,w_${width}/` : 'f_auto,q_auto,fl_strip_profile/';
     return `${url.slice(0, insertIdx)}${transform}${url.slice(insertIdx)}`;
   }
 

@@ -27,7 +27,7 @@ export const ImageTile: React.FC<ImageTileProps> = ({ image, priority = false })
     if (image.url.includes('cloudinary.com') && image.url.includes('/upload/')) {
       const attachmentUrl = image.url.replace(
         '/upload/',
-        `/upload/fl_attachment:${encodeURIComponent(filename.replace(/\.jpg$/, ''))}/`
+        `/upload/fl_attachment:${encodeURIComponent(filename.replace(/\.jpg$/, ''))},fl_strip_profile/`
       );
       const link = document.createElement('a');
       link.href = attachmentUrl;
