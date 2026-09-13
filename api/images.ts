@@ -1,5 +1,9 @@
 import { neon } from '@neondatabase/serverless';
 
+declare const process: {
+  env: Record<string, string | undefined>;
+};
+
 // Helper to sanitize and validate input
 const VALID_ASPECT_RATIOS = new Set(['portrait', 'landscape', 'square', 'tall']);
 const CLOUDINARY_URL_PATTERN = /^https:\/\/res\.cloudinary\.com\/[a-zA-Z0-9_-]+\/image\/upload\/[^\s"']+$/;
